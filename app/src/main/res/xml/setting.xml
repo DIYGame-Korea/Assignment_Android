@@ -1,0 +1,20 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="pref_key_category_default"
+        android:title="@string/pref_category_default">
+        <Preference
+            android:key="pref_key_title_notification"
+            android:title="@string/pref_title_notification" />
+        <RingtonePreference
+            android:ringtoneType="alarm"
+            android:key="pref_key_title_text_size"
+            android:title="@string/pref_title_text_size" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_key_category_advance"
+        android:title="@string/pref_category_advance">
+        <Preference
+            android:key="pref_key_title_sync_contactt"
+            android:title="@string/pref_title_sync_contact" />
+    </PreferenceCategory>
+</PreferenceScreen>
