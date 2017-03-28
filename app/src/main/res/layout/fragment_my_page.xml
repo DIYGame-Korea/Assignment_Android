@@ -1,7 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+        <com.idlab.idcorp.assignment_android.widget.GrayScaleImageView
+            android:id="@+id/iv_profile_background"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_profile" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#8c424242" />
+
+        <RelativeLayout
+            android:id="@+id/rl_profile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="60dp"
+            android:layout_centerHorizontal="true">
+
+            <com.idlab.idcorp.assignment_android.widget.RoundImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="#aaaaaa" />
+
+            <com.idlab.idcorp.assignment_android.widget.RoundImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_profile" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:background="@drawable/shape_white_radius"
+            android:layout_below="@+id/rl_profile"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/btn_change_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:textSize="13sp"
+            android:text="Change"
+            android:textColor="@android:color/white"
+            />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
