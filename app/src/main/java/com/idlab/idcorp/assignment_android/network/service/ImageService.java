@@ -1,12 +1,13 @@
 package com.idlab.idcorp.assignment_android.network.service;
 
-import java.util.List;
+import com.idlab.idcorp.assignment_android.data.Card;
 
-import okhttp3.ResponseBody;
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface ImageService {
     @GET("/assignment")
-    Call<ResponseBody> getImages();
+    Call<ArrayList<Card>> getImages();
 }

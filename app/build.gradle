@@ -39,5 +39,12 @@ dependencies {
     //network
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
 
+    //json parsing
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+
+    //string converter
+    compile 'com.squareup.retrofit2:converter-scalars:2.2.0'
+
     testCompile 'junit:junit:4.12'
 }

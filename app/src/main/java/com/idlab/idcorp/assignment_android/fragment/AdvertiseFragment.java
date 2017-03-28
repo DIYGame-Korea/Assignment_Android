@@ -4,24 +4,23 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.idlab.idcorp.assignment_android.R;
+import com.idlab.idcorp.assignment_android.adapter.CardAdapter;
+import com.idlab.idcorp.assignment_android.data.Card;
+import com.idlab.idcorp.assignment_android.network.ApiUtil;
 import com.idlab.idcorp.assignment_android.network.service.ImageService;
 
-import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Created by diygame5 on 2017-03-24.
@@ -31,7 +30,10 @@ public class AdvertiseFragment extends Fragment {
     private String TAG = AdvertiseFragment.class.getSimpleName();
     private Context mContext;
 
-    private ImageView mCardImage;
+    private RecyclerView mCardRecyclerView;
+    private CardAdapter mCardAdapter;
+    private ArrayList<Card> mCardList;
+    private LinearLayoutManager mLayoutManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,35 +46,40 @@ public class AdvertiseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_advertise, null);
 
-        mCardImage = (ImageView) view.findViewById(R.id.card_image);
-        Glide.with(AdvertiseFragment.this)
-                .load("https://s3.ap-northeast-2.amazonaws.com/into-assignment/images/test_1.jpg")
-                .centerCrop()
-                .into(mCardImage);
+        initComponent(view);
 
-        //test
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://a2vkkgaard.execute-api.ap-northeast-2.amazonaws.com")
-                .build();
-
-        ImageService service = retrofit.create(ImageService.class);
-
-        Call<ResponseBody> imageCall = service.getImages();
-        imageCall.enqueue(new Callback<ResponseBody>() {
+        ImageService service = ApiUtil.getImageService();
+        //API CALL
+        service.getImages().enqueue(new Callback<ArrayList<Card>>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Log.d(TAG, response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
+            public void onResponse(Call<ArrayList<Card>> call, Response<ArrayList<Card>> response) {
+                if (mCardList != null) {
+                    mCardList.clear();
                 }
+                //deep copy
+                mCardList.addAll(response.body());
+                mCardAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+            public void onFailure(Call<ArrayList<Card>> call, Throwable t) {
+                t.printStackTrace();
             }
         });
+
         return view;
     }
+
+    private void initComponent(View view) {
+        mCardRecyclerView = (RecyclerView) view.findViewById(R.id.card_recycler);
+        mCardList = new ArrayList<>();
+        mCardAdapter = new CardAdapter(mContext, mCardList);
+        mCardRecyclerView.setAdapter(mCardAdapter);
+        mLayoutManager = new LinearLayoutManager(mContext);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mCardRecyclerView.setLayoutManager(mLayoutManager);
+        mCardRecyclerView.setNestedScrollingEnabled(false);
+        mCardRecyclerView.setHasFixedSize(true);
+    }
+
 }
