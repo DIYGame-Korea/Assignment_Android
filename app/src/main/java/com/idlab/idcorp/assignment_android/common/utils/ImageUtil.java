@@ -1,4 +1,4 @@
-package com.idlab.idcorp.assignment_android.utils;
+package com.idlab.idcorp.assignment_android.common.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,6 +7,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

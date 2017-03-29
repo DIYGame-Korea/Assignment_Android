@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_contact"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
@@ -30,9 +33,11 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:hint="@string/hint_contact_search"
-            android:imeOptions="actionSearch"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:lines="1"
+            android:nextFocusLeft="@id/ll_contact"
+            android:nextFocusUp="@id/ll_contact"
             android:padding="1dp"
             android:textSize="14sp" />
     </LinearLayout>

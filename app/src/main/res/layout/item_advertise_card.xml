@@ -33,7 +33,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:padding="16dp"
-                android:text="Top 10 Australian beaches"
                 android:textColor="@android:color/white"
                 android:textSize="24sp" />
         </RelativeLayout>
@@ -47,15 +46,13 @@
             <TextView
                 android:id="@+id/card_sub_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Number 10" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/card_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="WhiteHaven Beach"
                 android:textColor="#212121" />
         </LinearLayout>
     </LinearLayout>

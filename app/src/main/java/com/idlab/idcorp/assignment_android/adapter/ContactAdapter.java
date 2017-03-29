@@ -52,7 +52,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ListItem
                 }
             }
         });
-
+        if (data.getProfileImage() != null) {
+            holder.ivProfile.setImageBitmap(data.getProfileImage());
+        } else {
+            holder.ivProfile.setImageResource(R.drawable.ic_profile);
+        }
     }
 
     public void setDataList(ArrayList<Contact> dataList) {

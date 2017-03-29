@@ -3,17 +3,25 @@
     <string name="title_contact">Contact</string>
     <string name="title_advertise">Advertise</string>
     <string name="title_my_page">My Page</string>
+    <string name="title_setting">Setting</string>
 
     <string name="pref_category_default">기본</string>
-    <string name="pref_category_advance">고급</string>
     <string name="pref_title_notification">알림</string>
-    <string name="pref_title_sync_contact">연락처 동기화</string>
-    <string name="pref_title_text_size">텍스트 사이즈</string>
+    <string name="pref_title_delete_profile">프로필 사진 초기화</string>
+    <string name="pref_title_change_name">이름 설정</string>
+
+    <string name="pref_default_name">Guest</string>
 
     <string name="permission_dialog_title">권한 알림</string>
     <string name="permission_dialog_setting">설정</string>
     <string name="permission_dialog_close">닫기</string>
     <string name="permission_dialog_message_contact">주소록 접근 권한이 필요합니다. 휴대폰 설정 > 앱에서 주소록 권한을 허용으로 변경 해주세요</string>
-    
+
     <string name="hint_contact_search">검색</string>
+
+    <string name="lotem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elementum placerat purus non dignissim. Nam id risus vitae magna luctus feugiat. Vivamus blandit nisl ac purus fringilla aliquet. Cras tristique a dolor id feugiat. Vivamus aliquet, elit in aliquam viverra, purus ligula iaculis purus, sit amet ornare arcu libero id metus. Sed ut erat vitae dui tristique porttitor. Ut ac iaculis est, sed feugiat nibh. Integer non tempor eros. Duis pulvinar bibendum massa, eu posuere sapien. Etiam ultricies feugiat nulla, ut rhoncus ex. Integer sit amet placerat dolor, ac interdum magna. Nulla elementum finibus sem eu elementum.
+
+Sed ut elit quis magna euismod efficitur at feugiat lectus. Vivamus mattis enim a tincidunt tristique. Maecenas ac lectus sed urna consequat faucibus nec nec diam. Mauris bibendum tellus at tellus varius molestie. Maecenas aliquet leo sed dictum tristique. Cras consectetur, ligula a euismod eleifend, nunc velit vehicula nibh, vel elementum elit eros sit amet eros. Donec finibus, quam a venenatis euismod, erat leo condimentum quam, non viverra justo libero vel velit.
+
+Etiam congue elementum diam mattis maximus. Donec vel lorem eu purus tristique rutrum aliquet id lorem. Pellentesque ex augue, sollicitudin eget rhoncus posuere, ultricies et nulla. Maecenas vestibulum varius urna vitae auctor. Pellentesque et sem sodales est semper ullamcorper eu non nisi. Mauris et turpis vel enim luctus ullamcorper eu commodo libero. Phasellus egestas luctus purus in hendrerit.</string>
 </resources>

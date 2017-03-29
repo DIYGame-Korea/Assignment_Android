@@ -2,8 +2,12 @@ package com.idlab.idcorp.assignment_android.fragment;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -13,17 +17,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.idlab.idcorp.assignment_android.R;
 import com.idlab.idcorp.assignment_android.adapter.ContactAdapter;
+import com.idlab.idcorp.assignment_android.common.utils.ImageUtil;
+import com.idlab.idcorp.assignment_android.common.utils.PermissionUtil;
 import com.idlab.idcorp.assignment_android.data.Contact;
-import com.idlab.idcorp.assignment_android.utils.PermissionUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by diygame5 on 2017-03-24.
@@ -59,10 +70,8 @@ public class ContactFragment extends Fragment {
         initComponent(view);
 
         if (PermissionUtil.checkAndRequestPermission(ContactFragment.this, PermissionUtil.PERMISSION_CONTACT, Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS)) {
-            //권한 승인됨
             new GetContacts().execute();
         } else {
-            //권한 거부됨
         }
         return view;
     }
@@ -76,16 +85,6 @@ public class ContactFragment extends Fragment {
         mContactRecyclerView.setLayoutManager(mLayoutManager);
         mContactRecyclerView.setHasFixedSize(true);
         mSearchEditText = (EditText) view.findViewById(R.id.contact_search);
-        //mSearchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-        //    @Override
-        //    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        //        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-        //            performSearch(v.getText().toString());
-        //            return true;
-        //        }
-        //        return false;
-        //    }
-        //});
     }
 
     private TextWatcher mOnSearchListener = new TextWatcher() {
@@ -133,11 +132,12 @@ public class ContactFragment extends Fragment {
     }
 
 
-    class GetContacts extends AsyncTask<Void, Void, Void> {
+    public class GetContacts extends AsyncTask<Void, Void, Void> {
         private final String[] PROJECTION = new String[]{
                 ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
                 ContactsContract.Contacts.DISPLAY_NAME,
                 ContactsContract.CommonDataKinds.Phone.NUMBER,
+                ContactsContract.CommonDataKinds.Phone.PHOTO_URI,
         };
 
         @Override
@@ -151,23 +151,65 @@ public class ContactFragment extends Fragment {
             ContentResolver cr = mContext.getContentResolver();
             Cursor cursor = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, PROJECTION, null, null, null);
             if (cursor != null) {
-                try {
-                    final int nameIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
-                    final int numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                if (cursor.getCount() > 0) {
+                    try {
+                        final int nameIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
+                        final int numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                        final int photoUriIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI);
 
-                    String name, number;
-                    while (cursor.moveToNext()) {
-                        name = cursor.getString(nameIndex);
-                        number = cursor.getString(numberIndex);
-                        Contact contact = new Contact(name, number);
-                        mContactList.add(contact);
+                        String name, number;
+                        Bitmap profile;
+                        while (cursor.moveToNext()) {
+                            name = cursor.getString(nameIndex);
+                            number = cursor.getString(numberIndex);
+                            profile = null;
+
+                            if (cursor.getString(photoUriIndex) != null) {
+                                profile = ImageUtil.getBitmapFromUri(mContext, Uri.parse(cursor.getString(photoUriIndex)));
+                            }
+                            Contact contact = new Contact(name, number, profile);
+                            mContactList.add(contact);
+                        }
+
+                    } finally {
+                        cursor.close();
                     }
-                } finally {
-                    cursor.close();
+                    Collections.sort(mContactList, new NameAscending());
                 }
             }
             return null;
         }
+
+        //이름 오름차순
+        private class NameAscending implements Comparator<Contact> {
+            @Override
+            public int compare(Contact o1, Contact o2) {
+                return o1.getUserName().compareTo(o2.getUserName());
+            }
+        }
+
+        //    private Bitmap getContactPhoto(Context context, long contact_id) {
+        //        Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contact_id);
+        //        Uri photoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
+        //        Cursor cursor = context.getContentResolver().query(photoUri, new String[]{ContactsContract.Contacts.Photo.PHOTO}, null, null, null);
+        //        if (cursor == null)
+        //            return null;
+        //        try {
+        //            if (cursor.getCount() > 0) {
+        //                if (cursor.moveToFirst()) {
+        //                    byte[] data = cursor.getBlob(0);
+        //                    cursor.close();
+        //                    if (data != null) {
+        //                        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+        //                        return bitmap;
+        //                    }
+        //                }
+        //            }
+        //        } finally {
+        //            cursor.close();
+        //        }
+        //        return null;
+        //    }
 
         @Override
         protected void onPostExecute(Void aVoid) {

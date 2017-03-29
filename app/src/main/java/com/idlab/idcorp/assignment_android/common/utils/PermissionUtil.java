@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.idlab.idcorp.assignment_android.utils;
+package com.idlab.idcorp.assignment_android.common.utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;

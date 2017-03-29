@@ -56,11 +56,10 @@ public class AdvertiseFragment extends Fragment {
                 if (mCardList != null) {
                     mCardList.clear();
                 }
-                //deep copy
+                //Deep copy
                 mCardList.addAll(response.body());
                 mCardAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onFailure(Call<ArrayList<Card>> call, Throwable t) {
                 t.printStackTrace();
