@@ -1,7 +1,6 @@
 package com.idlab.idcorp.assignment_android.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,8 +12,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +23,11 @@ import com.idlab.idcorp.assignment_android.fragment.AdvertiseFragment;
 import com.idlab.idcorp.assignment_android.fragment.ContactFragment;
 import com.idlab.idcorp.assignment_android.fragment.MyPageFragment;
 
+/**
+ * Created by diygame5 on 2017-03-24.
+ * Project : Assignment_Android
+ */
+
 public class MainActivity extends AppCompatActivity {
     private String TAG = MainActivity.class.getSimpleName();
 
@@ -34,6 +36,54 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager mMainViewPager;
     private MainPagerAdapter mMainPagerAdapter;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_contact:
+                    mMainViewPager.setCurrentItem(0);
+                    return true;
+                case R.id.navigation_advertise:
+                    mMainViewPager.setCurrentItem(1);
+                    return true;
+                case R.id.navigation_my_page:
+                    mMainViewPager.setCurrentItem(2);
+                    return true;
+            }
+            return false;
+        }
+    };
+    private ViewPager.OnPageChangeListener mOnViewPagerItemChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            //do nothing
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            if (mBottomNavigation != null) {
+                MenuItem menu = mBottomNavigation.getMenu().getItem(position);
+                menu.setChecked(true);
+            }
+            switch (position) {
+                case 0:
+                    mMainToolbar.setTitle(getString(R.string.title_contact));
+                    break;
+                case 1:
+                    mMainToolbar.setTitle(getString(R.string.title_advertise));
+                    break;
+                case 2:
+                    mMainToolbar.setTitle(getString(R.string.title_my_page));
+                    break;
+
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            //do nothing
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,62 +121,12 @@ public class MainActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(event);
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_contact:
-                    mMainViewPager.setCurrentItem(0);
-                    return true;
-                case R.id.navigation_advertise:
-                    mMainViewPager.setCurrentItem(1);
-                    return true;
-                case R.id.navigation_my_page:
-                    mMainViewPager.setCurrentItem(2);
-                    return true;
-            }
-            return false;
-        }
-    };
-
-    private ViewPager.OnPageChangeListener mOnViewPagerItemChangeListener = new ViewPager.OnPageChangeListener() {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            //do nothing
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-            if (mBottomNavigation != null) {
-                MenuItem menu = mBottomNavigation.getMenu().getItem(position);
-                menu.setChecked(true);
-            }
-            switch (position) {
-                case 0:
-                    mMainToolbar.setTitle(getString(R.string.title_contact));
-                    break;
-                case 1:
-                    mMainToolbar.setTitle(getString(R.string.title_advertise));
-                    break;
-                case 2:
-                    mMainToolbar.setTitle(getString(R.string.title_my_page));
-                    break;
-
-            }
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-            //do nothing
-        }
-    };
-
     private class MainPagerAdapter extends FragmentPagerAdapter {
         Fragment mFragmentContact;
         Fragment mFragmentAdvertise;
         Fragment mFragmentMyPage;
 
-        public MainPagerAdapter(FragmentManager fm) {
+        MainPagerAdapter(FragmentManager fm) {
             super(fm);
             mFragmentContact = new ContactFragment();
             mFragmentAdvertise = new AdvertiseFragment();
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = null;
+            Fragment fragment;
             switch (position) {
                 case 0:
                     fragment = mFragmentContact;

@@ -10,9 +10,13 @@ import android.util.AttributeSet;
 
 /**
  * Created by diygame5 on 2017-03-28.
+ * Project : Assignment_Android
  */
 
 public class GrayScaleImageView extends AppCompatImageView {
+    ColorMatrix matrix = new ColorMatrix();
+    ColorMatrixColorFilter cf;
+
     public GrayScaleImageView(Context context) {
         super(context);
     }
@@ -29,11 +33,10 @@ public class GrayScaleImageView extends AppCompatImageView {
     protected void onDraw(Canvas canvas) {
         Drawable drawable = getDrawable();
         if (drawable != null) {
-            //drawable.mutate().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-            ColorMatrix matrix = new ColorMatrix();
-            matrix.setSaturation(0);//채도 0이면 grayscale
-            ColorMatrixColorFilter cf = new ColorMatrixColorFilter(matrix);
-            //drawable.setColorFilter(Color.parseColor("#BDBDBD"), PorterDuff.Mode.MULTIPLY); //더 어둡게
+            if (cf == null) {
+                matrix.setSaturation(0);
+                cf = new ColorMatrixColorFilter(matrix);
+            }
             drawable.setColorFilter(cf);
         }
         super.onDraw(canvas);

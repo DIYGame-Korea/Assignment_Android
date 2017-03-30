@@ -17,6 +17,11 @@ import com.idlab.idcorp.assignment_android.data.Contact;
 
 import java.util.ArrayList;
 
+/**
+ * Created by diygame5 on 2017-03-24.
+ * Project : Assignment_Android
+ */
+
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ListItemViewHolder> {
     private static final String TAG = ContactAdapter.class.getSimpleName();
     private Context mContext = null;
@@ -73,13 +78,13 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ListItem
         return mDataList.size();
     }
 
-    public final static class ListItemViewHolder extends RecyclerView.ViewHolder {
+    final static class ListItemViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
         TextView tvPhone;
         AppCompatImageView ivProfile;
         AppCompatImageView ivCall;
 
-        public ListItemViewHolder(View itemView, int viewType) {
+        ListItemViewHolder(View itemView, int viewType) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.contact_item_name);
             tvPhone = (TextView) itemView.findViewById(R.id.contact_item_phone);

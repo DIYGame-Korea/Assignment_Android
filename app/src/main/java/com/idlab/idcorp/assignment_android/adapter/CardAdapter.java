@@ -16,12 +16,13 @@ import java.util.ArrayList;
 
 /**
  * Created by diygame5 on 2017-03-27.
+ * Project : Assignment_Android
  */
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ListItemViewHolder> {
     private static final String TAG = CardAdapter.class.getSimpleName();
     private Context mContext = null;
-    private ArrayList<Card> mDataList;
+    private final ArrayList<Card> mDataList;
 
     public CardAdapter(Context mContext, ArrayList<Card> dataList) {
         super();
@@ -57,13 +58,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ListItemViewHo
         return mDataList.size();
     }
 
-    public final static class ListItemViewHolder extends RecyclerView.ViewHolder {
+    final static class ListItemViewHolder extends RecyclerView.ViewHolder {
         TextView tvMainTitle;
         TextView tvSubTitle;
         TextView tvDescription;
         AppCompatImageView ivImage;
 
-        public ListItemViewHolder(View itemView, int viewType) {
+        ListItemViewHolder(View itemView, int viewType) {
             super(itemView);
             tvMainTitle = (TextView) itemView.findViewById(R.id.card_main_title);
             tvSubTitle = (TextView) itemView.findViewById(R.id.card_sub_title);

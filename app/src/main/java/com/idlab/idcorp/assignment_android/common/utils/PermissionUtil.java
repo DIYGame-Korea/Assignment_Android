@@ -36,7 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by jack on 2017-03-24.
+ * Created by diygame5 on 2017-03-27.
+ * Project : Assignment_Android
  * Runtime 에서 권한을 획특하기 위한 유틸리티 클래스
  */
 
@@ -75,7 +76,7 @@ public class PermissionUtil {
         }
     }
 
-    public static String[] getRequiredPermissions(Context context, String... permissions) {
+    private static String[] getRequiredPermissions(Context context, String... permissions) {
         List<String> requiredPermissions = new ArrayList<>();
 
         if (context == null) return requiredPermissions.toArray(new String[1]);
@@ -90,10 +91,8 @@ public class PermissionUtil {
     }
 
     public static boolean verifyPermissions(int[] grantResults) {
-        // At least one result must be checked.
         if (grantResults.length < 1) return false;
 
-        // Verify that each required permission has been granted, otherwise return false.
         for (int result : grantResults) {
             if (result != PackageManager.PERMISSION_GRANTED) return false;
         }

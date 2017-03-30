@@ -9,10 +9,12 @@ import android.util.AttributeSet;
 
 /**
  * Created by diygame5 on 2017-03-27.
+ * Project : Assignment_Android
  */
 
 public class RoundImageView extends AppCompatImageView {
-
+    Path clipPath = new Path();
+    RectF rect;
     public static float radius = 200.0f;
 
     public RoundImageView(Context context) {
@@ -30,9 +32,8 @@ public class RoundImageView extends AppCompatImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         radius = this.getWidth() * 1.0f;
-
-        Path clipPath = new Path();
-        RectF rect = new RectF(0, 0, this.getWidth(), this.getHeight());
+        if (rect == null)
+            rect = new RectF(0, 0, this.getWidth(), this.getHeight());
         clipPath.addRoundRect(rect, radius, radius, Path.Direction.CW);
         canvas.clipPath(clipPath);
         super.onDraw(canvas);

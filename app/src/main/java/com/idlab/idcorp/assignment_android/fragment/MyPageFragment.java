@@ -30,6 +30,7 @@ import static com.idlab.idcorp.assignment_android.common.Constants.*;
 
 /**
  * Created by diygame5 on 2017-03-24.
+ * Project : Assignment_Android
  */
 
 public class MyPageFragment extends Fragment {
@@ -51,7 +52,7 @@ public class MyPageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_page, null);
+        View view = inflater.inflate(R.layout.fragment_my_page, container,false);
 
         setHasOptionsMenu(true);
         initComponent(view);
@@ -103,7 +104,7 @@ public class MyPageFragment extends Fragment {
             mProfileImageView.setImageResource(R.drawable.ic_profile);
             mProfileBackgroundImageView.setImageResource(R.drawable.ic_profile);
         }
-        mNameTextView.setText("Hi, "+getName()+"!");
+        mNameTextView.setText(getString(R.string.welcome_text, getName()));
     }
 
     private Bitmap getProfile() {
@@ -112,15 +113,13 @@ public class MyPageFragment extends Fragment {
         if (encodedStr == null) {
             return null;
         } else {
-            Bitmap bitmap = ImageUtil.convert(encodedStr);
-            return bitmap;
+            return ImageUtil.convert(encodedStr);
         }
     }
 
     private String getName() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String nameStr = pref.getString(PREF_KEY_PROFILE_NAME, "Guest");
-        return nameStr;
+        return pref.getString(PREF_KEY_PROFILE_NAME, getString(R.string.default_name));
     }
 
     private void saveProfile(Bitmap bitmap) {

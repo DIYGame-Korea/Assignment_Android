@@ -2,29 +2,24 @@ package com.idlab.idcorp.assignment_android.fragment;
 
 import android.Manifest;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.idlab.idcorp.assignment_android.R;
 import com.idlab.idcorp.assignment_android.adapter.ContactAdapter;
@@ -38,6 +33,7 @@ import java.util.Comparator;
 
 /**
  * Created by diygame5 on 2017-03-24.
+ * Project : Assignment_Android
  */
 
 public class ContactFragment extends Fragment {
@@ -65,13 +61,12 @@ public class ContactFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_contact, null);
+        View view = inflater.inflate(R.layout.fragment_contact, container,false);
 
         initComponent(view);
 
         if (PermissionUtil.checkAndRequestPermission(ContactFragment.this, PermissionUtil.PERMISSION_CONTACT, Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS)) {
             new GetContacts().execute();
-        } else {
         }
         return view;
     }
@@ -119,7 +114,7 @@ public class ContactFragment extends Fragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,@NonNull int[] grantResults) {
         switch (requestCode) {
             case PermissionUtil.PERMISSION_CONTACT:
                 if (PermissionUtil.verifyPermissions(grantResults)) {
@@ -132,7 +127,7 @@ public class ContactFragment extends Fragment {
     }
 
 
-    public class GetContacts extends AsyncTask<Void, Void, Void> {
+    private class GetContacts extends AsyncTask<Void, Void, Void> {
         private final String[] PROJECTION = new String[]{
                 ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
                 ContactsContract.Contacts.DISPLAY_NAME,
@@ -187,29 +182,6 @@ public class ContactFragment extends Fragment {
                 return o1.getUserName().compareTo(o2.getUserName());
             }
         }
-
-        //    private Bitmap getContactPhoto(Context context, long contact_id) {
-        //        Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contact_id);
-        //        Uri photoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
-        //        Cursor cursor = context.getContentResolver().query(photoUri, new String[]{ContactsContract.Contacts.Photo.PHOTO}, null, null, null);
-        //        if (cursor == null)
-        //            return null;
-        //        try {
-        //            if (cursor.getCount() > 0) {
-        //                if (cursor.moveToFirst()) {
-        //                    byte[] data = cursor.getBlob(0);
-        //                    cursor.close();
-        //                    if (data != null) {
-        //                        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-        //                        return bitmap;
-        //                    }
-        //                }
-        //            }
-        //        } finally {
-        //            cursor.close();
-        //        }
-        //        return null;
-        //    }
 
         @Override
         protected void onPostExecute(Void aVoid) {

@@ -2,6 +2,7 @@ package com.idlab.idcorp.assignment_android.common;
 
 /**
  * Created by diygame5 on 2017-03-29.
+ * Project : Assignment_Android
  */
 
 public class Constants {

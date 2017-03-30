@@ -7,13 +7,14 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
  * Created by diygame5 on 2017-03-28.
+ * Project : Assignment_Android
+ * Image 처리를 위한 유틸리티 클래스
  */
 
 public class ImageUtil {
@@ -27,6 +28,7 @@ public class ImageUtil {
         return bm;
     }
 
+    @Deprecated
     public static Bitmap getResizedBitmapFromUri(Context context, Uri uri, int maxResolution) {
         Bitmap source = getBitmapFromUri(context, uri);
         if (source == null) {
@@ -53,6 +55,7 @@ public class ImageUtil {
         return Bitmap.createScaledBitmap(source, newWidth, newHeight, true);
     }
 
+    @Deprecated
     public static Bitmap getResizedBitmap(Bitmap source, int maxResolution) {
         int width = source.getWidth();
         int height = source.getHeight();
@@ -75,6 +78,8 @@ public class ImageUtil {
         return Bitmap.createScaledBitmap(source, newWidth, newHeight, true);
     }
 
+    //exif interface 를 구하기 위해 사용했다가 glide 로 교체하면서 deprecate 함
+    @Deprecated
     public static int exifToDegrees(int exifOrientation) {
         if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) { return 90; }
         else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {  return 180; }
@@ -82,19 +87,9 @@ public class ImageUtil {
         return 0;
     }
 
-    // public static Bitmap getResizedBitmap(Bitmap bitmap){
-    //     final BitmapFactory.Options options = new BitmapFactory.Options();
-    //     options.inJustDecodeBounds = true;
-    //     BitmapFactory.decodeFile(image.getAbsolutePath(), options);
-    //     options.inSampleSize = calculateInSampleSize(options);
-    //     options.inJustDecodeBounds = false;
-    //     BitmapFactory.
-    //     return BitmapFactory.decodeFile(image.getAbsolutePath(), options);
-    // }
-
-    public static final int IMAGE_MAXIMUM_WIDTH = 512;
-    public static final int IMAGE_MAXIMUM_HEIGHT = 512;
-
+    private static final int IMAGE_MAXIMUM_WIDTH = 512;
+    private static final int IMAGE_MAXIMUM_HEIGHT = 512;
+    @Deprecated
     public static int calculateInSampleSize(BitmapFactory.Options options) {
         // Raw height and width of image
         final int height = options.outHeight;
@@ -111,8 +106,7 @@ public class ImageUtil {
         return inSampleSize;
     }
 
-
-
+    //SharedPreference 에 저장하기 위해 Bitmap - String 변환
     public static Bitmap convert(String base64Str) throws IllegalArgumentException
     {
         byte[] decodedBytes = Base64.decode(

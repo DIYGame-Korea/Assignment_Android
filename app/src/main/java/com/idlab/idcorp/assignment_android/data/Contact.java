@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 /**
  * Created by diygame5 on 2017-03-24.
+ * Project : Assignment_Android
  */
 
 public class Contact {

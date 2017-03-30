@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/rl_header"
@@ -24,7 +24,8 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#8c424242" />
+                android:background="#8c424242"
+                card_view:ignore="ContentDescription" />
 
             <RelativeLayout
                 android:id="@+id/rl_profile"
@@ -60,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:text="Change"
+                    android:text="@string/common_change"
                     android:textColor="@android:color/white"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -96,7 +97,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="8dp"
                     android:padding="12dp"
-                    android:text="@string/lotem_ipsum"
+                    android:text="@string/lorem_ipsum"
                     android:textAlignment="center" />
 
             </LinearLayout>

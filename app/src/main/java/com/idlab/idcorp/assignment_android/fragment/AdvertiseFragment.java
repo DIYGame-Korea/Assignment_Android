@@ -24,6 +24,7 @@ import retrofit2.Response;
 
 /**
  * Created by diygame5 on 2017-03-24.
+ * Project : Assignment_Android
  */
 
 public class AdvertiseFragment extends Fragment {
@@ -44,7 +45,7 @@ public class AdvertiseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_advertise, null);
+        View view = inflater.inflate(R.layout.fragment_advertise, container, false);
 
         initComponent(view);
 
@@ -55,11 +56,14 @@ public class AdvertiseFragment extends Fragment {
             public void onResponse(Call<ArrayList<Card>> call, Response<ArrayList<Card>> response) {
                 if (mCardList != null) {
                     mCardList.clear();
+                    if (response.body() != null) {
+                        //Deep copy
+                        mCardList.addAll(response.body());
+                        mCardAdapter.notifyDataSetChanged();
+                    }
                 }
-                //Deep copy
-                mCardList.addAll(response.body());
-                mCardAdapter.notifyDataSetChanged();
             }
+
             @Override
             public void onFailure(Call<ArrayList<Card>> call, Throwable t) {
                 t.printStackTrace();

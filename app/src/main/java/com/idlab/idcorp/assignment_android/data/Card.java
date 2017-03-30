@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by diygame5 on 2017-03-28.
+ * Project : Assignment_Android
+ * Retrofit2 와 Gson 을 사용하기 위한 데이터 클래스
  */
 
 public class Card {
