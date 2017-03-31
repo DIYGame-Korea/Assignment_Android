@@ -24,6 +24,10 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.idlab.idcorp.assignment_android.R;
 import com.idlab.idcorp.assignment_android.activity.SettingActivity;
 import com.idlab.idcorp.assignment_android.common.utils.ImageUtil;
+import com.idlab.idcorp.assignment_android.widget.GrayScaleImageView;
+import com.idlab.idcorp.assignment_android.widget.RoundImageView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 import static com.idlab.idcorp.assignment_android.common.Constants.*;
@@ -38,8 +42,8 @@ public class MyPageFragment extends Fragment {
     private Context mContext;
 
     private TextView mChangeTextView;
-    private AppCompatImageView mProfileImageView;
-    private AppCompatImageView mProfileBackgroundImageView;
+    private RoundImageView mProfileImageView;
+    private GrayScaleImageView mProfileBackgroundImageView;
 
     private TextView mNameTextView;
 
@@ -62,8 +66,8 @@ public class MyPageFragment extends Fragment {
 
     private void initComponent(View view) {
         mChangeTextView = (TextView) view.findViewById(R.id.btn_change_profile);
-        mProfileImageView = (AppCompatImageView) view.findViewById(R.id.iv_profile);
-        mProfileBackgroundImageView = (AppCompatImageView) view.findViewById(R.id.iv_profile_background);
+        mProfileImageView = (RoundImageView) view.findViewById(R.id.iv_profile);
+        mProfileBackgroundImageView = (GrayScaleImageView) view.findViewById(R.id.iv_profile_background);
         mChangeTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -12,10 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.idlab.idcorp.assignment_android.R;
 import com.idlab.idcorp.assignment_android.data.Contact;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by diygame5 on 2017-03-24.
@@ -81,14 +84,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ListItem
     final static class ListItemViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
         TextView tvPhone;
-        AppCompatImageView ivProfile;
+        CircleImageView ivProfile;
         AppCompatImageView ivCall;
 
         ListItemViewHolder(View itemView, int viewType) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.contact_item_name);
             tvPhone = (TextView) itemView.findViewById(R.id.contact_item_phone);
-            ivProfile = (AppCompatImageView) itemView.findViewById(R.id.contact_item_profile);
+            ivProfile = (CircleImageView) itemView.findViewById(R.id.contact_item_profile);
             ivCall = (AppCompatImageView) itemView.findViewById(R.id.contact_item_call);
         }
     }

@@ -34,7 +34,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp">
 
-                <com.idlab.idcorp.assignment_android.widget.RoundImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="#aaaaaa" />

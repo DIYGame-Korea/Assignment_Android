@@ -12,6 +12,9 @@ import android.util.AttributeSet;
  * Project : Assignment_Android
  */
 
+//Causes frame drop. Migrate 'de.hdodenhof:circleimageview:2.1.0'
+//Reference : https://github.com/hdodenhof/CircleImageView
+@Deprecated
 public class RoundImageView extends AppCompatImageView {
     Path clipPath = new Path();
     RectF rect;
